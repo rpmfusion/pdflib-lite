@@ -1,0 +1,12 @@
+diff -up bind/pdflib/cpp/pdflib.hpp.gcc43 bind/pdflib/cpp/pdflib.hpp
+--- bind/pdflib/cpp/pdflib.hpp.gcc43	2008-02-28 10:43:00.000000000 +0100
++++ bind/pdflib/cpp/pdflib.hpp	2008-02-29 21:47:34.000000000 +0100
+@@ -28,6 +28,8 @@
+ #endif
+ 
+ #include <string>
++#include <cstring>
++#include <cstdlib>
+ #include "pdflib.h"
+ 
+ #if defined(_MSC_VER) && defined(_MANAGED)
