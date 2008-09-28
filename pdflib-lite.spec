@@ -5,7 +5,7 @@ Summary:        Portable C library for dynamically generating PDF files
 Name:           pdflib-lite
 # Remenber to check the URL after changing this...
 Version:        7.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        Distributable
 Group:          System Environment/Libraries
 URL:            http://www.pdflib.com/
@@ -184,6 +184,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Sep 28 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info - 7.0.3-2
+- rebuild
+
 * Fri Mar 28 2008 Remi Collet <Fedora@FamilleCollet.com> 7.0.3-1
 - update to 7.0.3
 - fix CVE-2007-6561: PDFlib stack-based buffer overflows
