@@ -4,15 +4,15 @@
 Summary:        Portable C library for dynamically generating PDF files
 Name:           pdflib-lite
 # Remenber to check the URL after changing this...
-Version:        7.0.3
-Release:        3%{?dist}
+Version:        7.0.4
+Release:        1%{?dist}
 License:        Distributable
 Group:          System Environment/Libraries
 URL:            http://www.pdflib.com/
 
-Source:         http://www.pdflib.com/binaries/PDFlib/703/PDFlib-Lite-%{version}.tar.gz
+Source:         http://www.pdflib.com/binaries/PDFlib/704/PDFlib-Lite-%{version}.tar.gz
 
-Patch0:         pdflib-lite-gcc43.patch
+Patch0:         pdflib-lite-7.0.4-gcc43.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -158,6 +158,7 @@ rm -rf %{buildroot}
 %defattr(-, root, root, -)
 %doc readme.txt doc/pdflib/PDFlib-Lite-license.pdf
 %{_bindir}/pdfimage
+%{_bindir}/text2pdf
 %{_libdir}/*.so.*
 
 
@@ -184,6 +185,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Mar 19 2009 Remi Collet <Fedora@FamilleCollet.com> 7.0.4-1
+- update to 7.0.4
+
 * Sat Dec 20 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 7.0.3-3
 - rebuild for python 2.6
 
