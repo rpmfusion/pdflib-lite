@@ -4,13 +4,13 @@
 Summary:        Portable C library for dynamically generating PDF files
 Name:           pdflib-lite
 # Remenber to check the URL after changing this...
-Version:        7.0.4
+Version:        7.0.4p1
 Release:        1%{?dist}
 License:        Distributable
 Group:          System Environment/Libraries
 URL:            http://www.pdflib.com/
 
-Source:         http://www.pdflib.com/binaries/PDFlib/704/PDFlib-Lite-%{version}.tar.gz
+Source:         http://www.pdflib.com/binaries/PDFlib/704p1/PDFlib-Lite-%{version}.tar.gz
 
 Patch0:         pdflib-lite-7.0.4-gcc43.patch
 
@@ -185,6 +185,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Mar 19 2009 Remi Collet <Fedora@FamilleCollet.com> 7.0.4p1-1
+- update to 7.0.4p1
+
 * Thu Mar 19 2009 Remi Collet <Fedora@FamilleCollet.com> 7.0.4-1
 - update to 7.0.4
 
