@@ -1,16 +1,16 @@
-%{!?python_sitearch: %define python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
-%{!?python_include:  %define python_include  %(%{__python} -c "from distutils.sysconfig import get_python_inc; print get_python_inc(0)")}
+%{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
+%{!?python_include:  %global python_include  %(%{__python} -c "from distutils.sysconfig import get_python_inc; print get_python_inc(0)")}
 
 Summary:        Portable C library for dynamically generating PDF files
 Name:           pdflib-lite
 # Remenber to check the URL after changing this...
-Version:        7.0.4p4
+Version:        7.0.5
 Release:        1%{?dist}
 License:        Distributable
 Group:          System Environment/Libraries
 URL:            http://www.pdflib.com/
 
-Source:         http://www.pdflib.com/binaries/PDFlib/704/PDFlib-Lite-%{version}.tar.gz
+Source:         http://www.pdflib.com/binaries/PDFlib/705/PDFlib-Lite-%{version}.tar.gz
 
 Patch0:         pdflib-lite-7.0.4-gcc43.patch
 
@@ -99,7 +99,10 @@ sed -i -e 's,^PYTHONLIBDIR.*,PYTHONLIBDIR = %{python_sitearch},' \
 sed -i -e s@/usr/lib@%{_libdir}@ libtool
 
 %{__make} %{?_smp_mflags}
-
+for lang in perl python
+do
+  %{__make} -C bind/pdflib/$lang
+done
 
 %install
 rm -rf %{buildroot} examples
@@ -107,6 +110,10 @@ mkdir -p %{buildroot}%{python_sitearch}
 mkdir -p %{buildroot}%{perl_vendorarch}
 
 make install DESTDIR=%{buildroot}
+for lang in perl python
+do
+  make -C bind/pdflib/$lang install DESTDIR=%{buildroot}
+done
 
 install -p -m 0644 bind/pdflib/cpp/pdflib.hpp %{buildroot}%{_includedir}/pdflib.hpp
 
@@ -185,6 +192,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu May 06 2010 Remi Collet <Fedora@FamilleCollet.com> 7.0.5-1
+- update to 7.0.5
+
 * Sat Jun 13 2009 Remi Collet <Fedora@FamilleCollet.com> 7.0.4p4-1
 - update to 7.0.4p4
 
