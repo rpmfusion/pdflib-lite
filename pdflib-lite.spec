@@ -5,7 +5,7 @@ Summary:        Portable C library for dynamically generating PDF files
 Name:           pdflib-lite
 # Remenber to check the URL after changing this...
 Version:        7.0.5
-Release:        1%{?dist}
+Release:        1%{?dist}.1
 License:        Distributable
 Group:          System Environment/Libraries
 URL:            http://www.pdflib.com/
@@ -61,7 +61,7 @@ Group:          System Environment/Libraries
 Requires:       %{name} = %{version}-%{release}
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Provides:       perl-pdflib = %{version}-%{release}
-%if 0%{?fedora} >= 7
+%if 0%{?fedora} >= 7 || 0%{?rhel} >= 6
 BuildRequires:  perl-devel
 %endif
 
@@ -192,6 +192,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sat Jul 23 2011 Remi Collet <Fedora@FamilleCollet.com> 7.0.5-1.1
+- BR perl-devel on EL-6
+
 * Thu May 06 2010 Remi Collet <Fedora@FamilleCollet.com> 7.0.5-1
 - update to 7.0.5
 
