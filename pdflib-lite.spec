@@ -192,7 +192,7 @@ rm -rf %{buildroot}
 
 
 %changelog
-* Sun Apr 29 2011 Remi Collet <Fedora@FamilleCollet.com> 7.0.5-1.fc16.2
+* Sun Apr 29 2012 Remi Collet <Fedora@FamilleCollet.com> 7.0.5-1.fc16.2
 - rebuild for perl 5.14 in F16 (#2297)
 
 * Sat Jul 23 2011 Remi Collet <Fedora@FamilleCollet.com> 7.0.5-1.1
