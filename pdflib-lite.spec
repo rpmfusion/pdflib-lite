@@ -5,7 +5,7 @@ Summary:        Portable C library for dynamically generating PDF files
 Name:           pdflib-lite
 # Remenber to check the URL after changing this...
 Version:        7.0.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        Distributable
 Group:          System Environment/Libraries
 URL:            http://www.pdflib.com/
@@ -192,6 +192,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Sun Dec 08 2013 Nicolas Chauvet <kwizart@gmail.com> - 7.0.5-4
+- Rebuilt
+
 * Wed Oct 10 2012 Nicolas Chauvet <kwizart@gmail.com> - 7.0.5-3
 - Rebuilt for perl
 
