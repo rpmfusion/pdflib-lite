@@ -5,7 +5,7 @@ Summary:        Portable C library for dynamically generating PDF files
 Name:           pdflib-lite
 # Remenber to check the URL after changing this...
 Version:        7.0.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        Distributable
 Group:          System Environment/Libraries
 URL:            http://www.pdflib.com/
@@ -62,9 +62,7 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl-generators
 Provides:       perl-pdflib = %{version}-%{release}
-%if 0%{?fedora} >= 7 || 0%{?rhel} >= 6
 BuildRequires:  perl-devel
-%endif
 
 %description perl
 PDFlib is a development tool for PDF-enabling your software, 
@@ -165,7 +163,6 @@ rm -rf %{buildroot}
 
 
 %files
-%defattr(-, root, root, -)
 %doc readme.txt doc/pdflib/PDFlib-Lite-license.pdf
 %{_bindir}/pdfimage
 %{_bindir}/text2pdf
@@ -173,7 +170,6 @@ rm -rf %{buildroot}
 
 
 %files devel
-%defattr(-, root, root, -)
 %doc doc/pdflib/PDFlib-Lite-license.pdf
 %doc doc/pdflib/changes.txt doc/pdflib/compatibility.txt examples
 %doc doc/pdflib/PDFlib-API-reference.pdf doc/pdflib/PDFlib-tutorial.pdf doc/pdflib/readme-source-unix.txt
@@ -183,18 +179,19 @@ rm -rf %{buildroot}
 
 
 %files python
-%defattr(-, root, root, -)
 %doc doc/pdflib/PDFlib-Lite-license.pdf
 %{python_sitearch}/pdflib_py.so*
 
 
 %files perl
-%defattr(-, root, root, -)
 %doc doc/pdflib/PDFlib-Lite-license.pdf
 %{perl_vendorarch}/pdflib_pl.*
 
 
 %changelog
+* Sun Jun 18 2017 Paul Howarth <paul@city-fan.org> - 7.0.5-11
+- Perl 5.26 rebuild
+
 * Sun Mar 26 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 7.0.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
@@ -205,8 +202,7 @@ rm -rf %{buildroot}
 - Rebuild for Perl with locale (buildroot with glibc-all-langpacks)
 
 * Mon Aug 01 2016 Sérgio Basto <sergio@serjux.com> - 7.0.5-7
--
-  https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
+- https://fedoraproject.org/wiki/Changes/Automatic_Provides_for_Python_RPM_Packages
 
 * Wed Jul 20 2016 Leigh Scott <leigh123linux@googlemail.com> - 7.0.5-6
 - fix build issue
