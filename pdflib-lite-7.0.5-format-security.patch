@@ -1,0 +1,11 @@
+--- bind/pdflib/perl/pdflib_pl.c
++++ bind/pdflib/perl/pdflib_pl.c
+@@ -375,7 +375,7 @@ SWIGEXPORT(void,boot_pdflib_pl)(CV *cv,
+ #include "pdflib.h"
+ 
+ /* Exception handling */
+-#define SWIG_exception(msg)   	croak(msg)
++#define SWIG_exception(msg)   	croak("%s", msg)
+ #define try     PDF_TRY(p)
+ #define catch   PDF_CATCH(p) { \
+                 char errmsg[1024];\

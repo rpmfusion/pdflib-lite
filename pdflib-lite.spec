@@ -13,6 +13,7 @@ URL:            http://www.pdflib.com/
 Source:         http://www.pdflib.com/binaries/PDFlib/705/PDFlib-Lite-%{version}.tar.gz
 
 Patch0:         pdflib-lite-7.0.4-gcc43.patch
+Patch1:         pdflib-lite-7.0.5-format-security.patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -78,6 +79,7 @@ that will use the PDFlib library.
 %prep
 %setup -q -n PDFlib-Lite-%{version}
 %patch0 -p0 -b .gcc43
+%patch1 -b .format-security
 
 sed -i -e 's,^PYTHONLIBDIR.*,PYTHONLIBDIR = %{python_sitearch},' \
        -e 's,^PERLLIBDIR.*,PERLLIBDIR = %{perl_vendorarch},' \
@@ -191,6 +193,7 @@ rm -rf %{buildroot}
 %changelog
 * Sun Jun 18 2017 Paul Howarth <paul@city-fan.org> - 7.0.5-11
 - Perl 5.26 rebuild
+- Add patch to work around false positive in format-security check
 
 * Sun Mar 26 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 7.0.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
