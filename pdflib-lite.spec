@@ -14,6 +14,8 @@ Source:         http://www.pdflib.com/binaries/PDFlib/705/PDFlib-Lite-%{version}
 Patch0:         pdflib-lite-7.0.4-gcc43.patch
 Patch1:         pdflib-lite-7.0.5-format-security.patch
 
+BuildRequires:  gcc gcc-c++
+
 %description
 PDFlib is a development tool for PDF-enabling your software, 
 or generating PDF on your server. PDFlib offers a simple-to-use API
