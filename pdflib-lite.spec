@@ -1,3 +1,5 @@
+%{!?python2_include:  %global python2_include  %(%{__python2} -c "from distutils.sysconfig import get_python_inc; print get_python_inc(0)")}
+
 Summary:        Portable C library for dynamically generating PDF files
 Name:           pdflib-lite
 # Remenber to check the URL after changing this...
