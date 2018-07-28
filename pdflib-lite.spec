@@ -1,6 +1,3 @@
-%{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib(1)")}
-%{!?python_include:  %global python_include  %(%{__python} -c "from distutils.sysconfig import get_python_inc; print get_python_inc(0)")}
-
 Summary:        Portable C library for dynamically generating PDF files
 Name:           pdflib-lite
 # Remenber to check the URL after changing this...
@@ -14,8 +11,6 @@ Source:         http://www.pdflib.com/binaries/PDFlib/705/PDFlib-Lite-%{version}
 
 Patch0:         pdflib-lite-7.0.4-gcc43.patch
 Patch1:         pdflib-lite-7.0.5-format-security.patch
-
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
 PDFlib is a development tool for PDF-enabling your software, 
@@ -42,7 +37,7 @@ the PDFlib library.
 %package python
 Summary:        Python shared library for pdflib
 Group:          System Environment/Libraries
-BuildRequires:  python-devel
+BuildRequires:  python2-devel
 Requires:       %{name} = %{version}-%{release}
 Provides:       python-pdflib = %{version}-%{release}
 
@@ -81,7 +76,7 @@ that will use the PDFlib library.
 %patch0 -p0 -b .gcc43
 %patch1 -b .format-security
 
-sed -i -e 's,^PYTHONLIBDIR.*,PYTHONLIBDIR = %{python_sitearch},' \
+sed -i -e 's,^PYTHONLIBDIR.*,PYTHONLIBDIR = %{python2_sitearch},' \
        -e 's,^PERLLIBDIR.*,PERLLIBDIR = %{perl_vendorarch},' \
        config/mkcommon.inc.in
 
@@ -90,7 +85,7 @@ sed -i -e 's,^PYTHONLIBDIR.*,PYTHONLIBDIR = %{python_sitearch},' \
 # java, ruby and tcl disabled
 # File a bug with RFE and patch if you need it
 %configure \
-    --with-pyincl=%{python_include} \
+    --with-pyincl=%{python2_include} \
     --with-java=no \
     --with-ruby=no \
     --with-tcl=no \
@@ -109,7 +104,7 @@ done
 
 %install
 rm -rf %{buildroot} examples
-mkdir -p %{buildroot}%{python_sitearch}
+mkdir -p %{buildroot}%{python2_sitearch}
 mkdir -p %{buildroot}%{perl_vendorarch}
 
 make install DESTDIR=%{buildroot}
@@ -121,12 +116,12 @@ done
 install -p -m 0644 bind/pdflib/cpp/pdflib.hpp %{buildroot}%{_includedir}/pdflib.hpp
 
 rm %{buildroot}%{_libdir}/*.{la,a}
-rm %{buildroot}%{python_sitearch}/*.{la,a}
+rm %{buildroot}%{python2_sitearch}/*.{la,a}
 rm %{buildroot}%{perl_vendorarch}/*.{la,a}
 
 # require to extract debuginfo
 chmod +x %{buildroot}%{_libdir}/libpdf*
-chmod +x %{buildroot}%{python_sitearch}/pdflib_py.so*
+chmod +x %{buildroot}%{python2_sitearch}/pdflib_py.so*
 chmod +x %{buildroot}%{perl_vendorarch}/pdflib_pl.so*
 
 # Only sources
@@ -182,7 +177,7 @@ rm -rf %{buildroot}
 
 %files python
 %doc doc/pdflib/PDFlib-Lite-license.pdf
-%{python_sitearch}/pdflib_py.so*
+%{python2_sitearch}/pdflib_py.so*
 
 
 %files perl
@@ -193,6 +188,7 @@ rm -rf %{buildroot}
 %changelog
 * Fri Jul 27 2018 RPM Fusion Release Engineering <sergio@serjux.com> - 7.0.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+- Add python2 support
 
 * Fri Mar 02 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 7.0.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
