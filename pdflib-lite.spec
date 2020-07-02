@@ -4,7 +4,7 @@ Summary:        Portable C library for dynamically generating PDF files
 Name:           pdflib-lite
 # Remenber to check the URL after changing this...
 Version:        7.0.5
-Release:        18%{?dist}
+Release:        19%{?dist}
 License:        Distributable
 Group:          System Environment/Libraries
 URL:            http://www.pdflib.com/
@@ -60,9 +60,9 @@ Summary:        Perl shared library for pdflib
 Group:          System Environment/Libraries
 Requires:       %{name} = %{version}-%{release}
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-Requires:       perl-generators
 Provides:       perl-pdflib = %{version}-%{release}
 BuildRequires:  perl-devel
+BuildRequires:  perl-generators
 
 %description perl
 PDFlib is a development tool for PDF-enabling your software, 
@@ -190,6 +190,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Thu Jul 02 2020 Paul Howarth <paul@city-fan.org> - 7.0.5-19
+- Perl 5.32 rebuild
+
 * Wed Feb 05 2020 RPM Fusion Release Engineering <leigh123linux@gmail.com> - 7.0.5-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
