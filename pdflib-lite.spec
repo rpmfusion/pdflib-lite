@@ -4,7 +4,7 @@ Summary:        Portable C library for dynamically generating PDF files
 Name:           pdflib-lite
 # Remenber to check the URL after changing this...
 Version:        7.0.5
-Release:        24%{?dist}
+Release:        25%{?dist}
 License:        Distributable
 Group:          System Environment/Libraries
 URL:            http://www.pdflib.com/
@@ -190,6 +190,9 @@ rm -rf %{buildroot}
 
 
 %changelog
+* Tue Jun 21 2022 Paul Howarth <paul@city-fan.org> - 7.0.5-25
+- Perl 5.36 rebuild
+
 * Thu Feb 10 2022 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 7.0.5-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
