@@ -77,8 +77,8 @@ that will use the PDFlib library.
 
 %prep
 %setup -q -n PDFlib-Lite-%{version}
-%patch0 -p0 -b .gcc43
-%patch1 -b .format-security
+%patch -P0 -p0 -b .gcc43
+%patch -P1 -b .format-security
 
 sed -i -e 's,^PYTHONLIBDIR.*,PYTHONLIBDIR = %{python2_sitearch},' \
        -e 's,^PERLLIBDIR.*,PERLLIBDIR = %{perl_vendorarch},' \
