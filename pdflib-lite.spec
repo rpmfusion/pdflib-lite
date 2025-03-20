@@ -1,4 +1,4 @@
-%{!?python2_include:  %global python2_include  %(%{__python2} -c "from distutils.sysconfig import get_python_inc; print get_python_inc(0)")}
+%global _python3_include %(%{__python3} -Ic "from sysconfig import get_path; print(get_path('include'))")
 
 Summary:        Portable C library for dynamically generating PDF files
 Name:           pdflib-lite
@@ -6,7 +6,6 @@ Name:           pdflib-lite
 Version:        7.0.5
 Release:        30%{?dist}
 License:        Distributable
-Group:          System Environment/Libraries
 URL:            http://www.pdflib.com/
 
 Source:         http://www.pdflib.com/binaries/PDFlib/705/PDFlib-Lite-%{version}.tar.gz
@@ -25,8 +24,7 @@ for generating PDF, nor does it require any other tools.
 
 %package devel
 Summary:        Development files for pdflib
-Group:          Development/Libraries
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
 PDFlib is a development tool for PDF-enabling your software, 
@@ -40,9 +38,8 @@ the PDFlib library.
 
 %package python
 Summary:        Python shared library for pdflib
-Group:          System Environment/Libraries
-BuildRequires:  python2-devel
-Requires:       %{name} = %{version}-%{release}
+BuildRequires:  python3-devel
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       python-pdflib = %{version}-%{release}
 
 %description python
@@ -57,8 +54,7 @@ that will use the PDFlib library.
 
 %package perl
 Summary:        Perl shared library for pdflib
-Group:          System Environment/Libraries
-Requires:       %{name} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Provides:       perl-pdflib = %{version}-%{release}
 BuildRequires:  perl-devel
@@ -80,7 +76,7 @@ that will use the PDFlib library.
 %patch -P0 -p0 -b .gcc43
 %patch -P1 -b .format-security
 
-sed -i -e 's,^PYTHONLIBDIR.*,PYTHONLIBDIR = %{python2_sitearch},' \
+sed -i -e 's,^PYTHONLIBDIR.*,PYTHONLIBDIR = %{python3_sitearch},' \
        -e 's,^PERLLIBDIR.*,PERLLIBDIR = %{perl_vendorarch},' \
        config/mkcommon.inc.in
 
@@ -89,7 +85,7 @@ sed -i -e 's,^PYTHONLIBDIR.*,PYTHONLIBDIR = %{python2_sitearch},' \
 # java, ruby and tcl disabled
 # File a bug with RFE and patch if you need it
 %configure \
-    --with-pyincl=%{python2_include} \
+    --with-pyincl=%{_python3_include} \
     --with-java=no \
     --with-ruby=no \
     --with-tcl=no \
@@ -100,15 +96,15 @@ sed -i -e 's,^PYTHONLIBDIR.*,PYTHONLIBDIR = %{python2_sitearch},' \
 # removed because it breaks building
 # gcc: error: /usr/lib64/rpm/redhat/redhat-hardened-ld: No such file or directory
 
-%{__make} %{?_smp_mflags}
+%{make_build}
 for lang in perl python
 do
-  %{__make} -C bind/pdflib/$lang
+  %{make_build} -C bind/pdflib/$lang
 done
 
 %install
 rm -rf %{buildroot} examples
-mkdir -p %{buildroot}%{python2_sitearch}
+mkdir -p %{buildroot}%{python3_sitearch}
 mkdir -p %{buildroot}%{perl_vendorarch}
 
 make install DESTDIR=%{buildroot}
@@ -120,12 +116,12 @@ done
 install -p -m 0644 bind/pdflib/cpp/pdflib.hpp %{buildroot}%{_includedir}/pdflib.hpp
 
 rm %{buildroot}%{_libdir}/*.{la,a}
-rm %{buildroot}%{python2_sitearch}/*.{la,a}
+rm %{buildroot}%{python3_sitearch}/*.{la,a}
 rm %{buildroot}%{perl_vendorarch}/*.{la,a}
 
 # require to extract debuginfo
 chmod +x %{buildroot}%{_libdir}/libpdf*
-chmod +x %{buildroot}%{python2_sitearch}/pdflib_py.so*
+chmod +x %{buildroot}%{python3_sitearch}/pdflib_py.so*
 chmod +x %{buildroot}%{perl_vendorarch}/pdflib_pl.so*
 
 # Only sources
@@ -155,10 +151,6 @@ cp bind/pdflib/php/examples.php5/*.php \
    examples/php
 
 
-%clean
-rm -rf %{buildroot}
-
-
 %post   -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
@@ -181,7 +173,7 @@ rm -rf %{buildroot}
 
 %files python
 %doc doc/pdflib/PDFlib-Lite-license.pdf
-%{python2_sitearch}/pdflib_py.so*
+%{python3_sitearch}/pdflib_py.so*
 
 
 %files perl
